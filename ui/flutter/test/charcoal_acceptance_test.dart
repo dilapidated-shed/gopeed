@@ -121,32 +121,35 @@ void main() {
         final controller = TextEditingController();
         addTearDown(() {
           controller.dispose();
-          debugDefaultTargetPlatformOverride = null;
           tester.platformDispatcher.clearPlatformBrightnessTestValue();
           tester.view.resetDevicePixelRatio();
           tester.view.resetPhysicalSize();
         });
-        await tester.pumpWidget(_controls(controller));
-        await tester.pumpAndSettle();
-        final context = tester.element(find.text('Body ink'));
-        expect(shad.Theme.of(context).brightness, Brightness.dark);
-        expect(shad.Theme.of(context).colorScheme.background, AppCharcoal.background);
-        expect(DefaultTextStyle.of(context).style.color, AppCharcoal.text);
-        final name = '${width.toInt()}-${brightness.name}';
-        expect(await _capture(tester, '$name-empty'), isTrue);
-
-        await tester.enterText(find.byType(AppTextField), 'λğ✓ retained input');
-        await tester.pumpAndSettle();
-        controller.selection = const TextSelection(baseOffset: 0, extentOffset: 3);
-        await tester.pump();
-        expect(controller.text, 'λğ✓ retained input');
-        expect(controller.selection.textInside(controller.text), 'λğ✓');
-        expect(tester.takeException(), isNull);
-        expect(await _capture(tester, '$name-input-selection'), isTrue);
-
-        await tester.pumpWidget(_controls(controller, light: true));
-        await tester.pumpAndSettle();
-        expect(await _capture(tester, '$name-declared-light-negative'), isFalse);
+        try {
+          await tester.pumpWidget(_controls(controller));
+          await tester.pumpAndSettle();
+          final context = tester.element(find.text('Body ink'));
+          expect(shad.Theme.of(context).brightness, Brightness.dark);
+          expect(shad.Theme.of(context).colorScheme.background, AppCharcoal.background);
+          expect(DefaultTextStyle.of(context).style.color, AppCharcoal.text);
+          final name = '${width.toInt()}-${brightness.name}';
+          expect(await _capture(tester, '$name-empty'), isTrue);
+  
+          await tester.enterText(find.byType(AppTextField), 'λğ✓ retained input');
+          await tester.pumpAndSettle();
+          controller.selection = const TextSelection(baseOffset: 0, extentOffset: 3);
+          await tester.pump();
+          expect(controller.text, 'λğ✓ retained input');
+          expect(controller.selection.textInside(controller.text), 'λğ✓');
+          expect(tester.takeException(), isNull);
+          expect(await _capture(tester, '$name-input-selection'), isTrue);
+  
+          await tester.pumpWidget(_controls(controller, light: true));
+          await tester.pumpAndSettle();
+          expect(await _capture(tester, '$name-declared-light-negative'), isFalse);
+        } finally {
+          debugDefaultTargetPlatformOverride = null;
+        }
       });
     }
   }
