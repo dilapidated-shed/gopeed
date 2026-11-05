@@ -24,17 +24,20 @@ double _contrast(Color first, Color second) {
 
 Future<bool> _capture(WidgetTester tester, String name) async {
   final boundary = tester.renderObject<RenderRepaintBoundary>(find.byKey(_boundary));
-  final image = await boundary.toImage(pixelRatio: 1);
-  try {
-    final rgba = (await image.toByteData(format: ui.ImageByteFormat.rawRgba))!.buffer.asUint8List();
-    final firstPixelIsCharcoal = rgba[0] == 33 && rgba[1] == 33 && rgba[2] == 33 && rgba[3] == 255;
-    final png = await image.toByteData(format: ui.ImageByteFormat.png);
-    final directory = Directory('../../build/charcoal-gopeed')..createSync(recursive: true);
-    File('${directory.path}/$name.png').writeAsBytesSync(png!.buffer.asUint8List());
-    return firstPixelIsCharcoal;
-  } finally {
-    image.dispose();
-  }
+  final isCharcoal = await tester.runAsync(() async {
+    final image = await boundary.toImage(pixelRatio: 1);
+    try {
+      final rgba = (await image.toByteData(format: ui.ImageByteFormat.rawRgba))!.buffer.asUint8List();
+      final firstPixelIsCharcoal = rgba[0] == 33 && rgba[1] == 33 && rgba[2] == 33 && rgba[3] == 255;
+      final png = await image.toByteData(format: ui.ImageByteFormat.png);
+      final directory = Directory('../../build/charcoal-gopeed')..createSync(recursive: true);
+      File('${directory.path}/$name.png').writeAsBytesSync(png!.buffer.asUint8List());
+      return firstPixelIsCharcoal;
+    } finally {
+      image.dispose();
+    }
+  });
+  return isCharcoal!;
 }
 
 Widget _controls(TextEditingController controller, {bool light = false}) {

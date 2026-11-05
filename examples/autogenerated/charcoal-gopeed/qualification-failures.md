@@ -1,0 +1,7 @@
+# Retained Flutter qualification failures
+
+Run42036474388 passes exact native copies, locked dependency installation and flutter analyze with no issues. The full Flutter suite reports284 passes, one existing skip and ten failures. Six new shared-control captures wait for real image readback inside the framework's fake async zone and time out; image readback now uses WidgetTester.runAsync while the same rendered-pixel/color/input predicates remain unchanged. No artificial scene or accepted image is injected.
+
+Two failures expose the changed default theme and an unnecessarily changed explicit-light focus width. The default GopeedApp task test now expects the intended dark rail ink, retaining all navigation/layout assertions. Explicit light focus retains its original width1/accent behavior; dark focus remains opaque B4/width2. Dark disabled shared-button text/icons use the exact85 role.
+
+Two inherited fixture drifts are also exposed: the unchanged localized native title has spaces around the hyphen, and the unchanged generated/localized catalog contains22 ARB languages rather than21. Expected title strings and the exact catalog count are reconciled to those existing sources; no production title, locale, localization generator or behavior changes. Canonical language rejection/selection assertions remain intact. The original screenshot observer is preserved. Current full-suite, formatting and Android results are pending; no failed fixture or shared-control frame is promoted to whole-app acceptance.
