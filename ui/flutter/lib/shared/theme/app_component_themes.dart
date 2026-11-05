@@ -16,7 +16,7 @@ class AppComponentThemes extends StatelessWidget {
     return shad.ComponentTheme<shad.FocusOutlineTheme>(
       data: shad.FocusOutlineTheme(
         align: 1,
-        border: Border.all(color: theme.colorScheme.ring.withValues(alpha: 0.65), width: 1),
+        border: Border.all(color: palette.textSecondary, width: 2),
       ),
       child: shad.ComponentTheme<shad.TextFieldTheme>(
         data: shad.TextFieldTheme(

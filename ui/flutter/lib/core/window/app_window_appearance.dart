@@ -1,11 +1,11 @@
 class AppWindowAppearance {
   const AppWindowAppearance({required this.themeMode, required this.themeColor, required this.locale});
 
-  const AppWindowAppearance.defaults() : themeMode = 'system', themeColor = 'green', locale = '';
+  const AppWindowAppearance.defaults() : themeMode = 'dark', themeColor = 'green', locale = '';
 
   factory AppWindowAppearance.fromJson(Map<String, dynamic> json) {
     return AppWindowAppearance(
-      themeMode: (json['themeMode'] ?? 'system').toString(),
+      themeMode: (json['themeMode'] ?? 'dark').toString(),
       themeColor: (json['themeColor'] ?? 'green').toString(),
       locale: (json['locale'] ?? '').toString(),
     );

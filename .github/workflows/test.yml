@@ -242,6 +242,12 @@ jobs:
           gomobile bind -tags nosqlite -ldflags="-w -s -checklinkname=0" -o ui/flutter/android/app/libs/libgopeed.aar -target=android -androidapi 21 -javapkg=com.gopeed github.com/GopeedLab/gopeed/bind/mobile
           cd ui/flutter
           flutter build apk
+      - if: runner.os == 'Linux'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: gopeed-charcoal-existing-mobile-build
+          path: ui/flutter/build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
 
   build-web:
     name: Build web check
