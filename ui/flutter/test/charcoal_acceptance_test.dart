@@ -134,7 +134,7 @@ void main() {
           expect(DefaultTextStyle.of(context).style.color, AppCharcoal.text);
           final name = '${width.toInt()}-${brightness.name}';
           expect(await _capture(tester, '$name-empty'), isTrue);
-  
+
           await tester.enterText(find.byType(AppTextField), 'λğ✓ retained input');
           await tester.pumpAndSettle();
           controller.selection = const TextSelection(baseOffset: 0, extentOffset: 3);
@@ -143,7 +143,7 @@ void main() {
           expect(controller.selection.textInside(controller.text), 'λğ✓');
           expect(tester.takeException(), isNull);
           expect(await _capture(tester, '$name-input-selection'), isTrue);
-  
+
           await tester.pumpWidget(_controls(controller, light: true));
           await tester.pumpAndSettle();
           expect(await _capture(tester, '$name-declared-light-negative'), isFalse);

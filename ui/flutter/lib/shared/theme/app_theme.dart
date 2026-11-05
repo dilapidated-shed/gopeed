@@ -149,20 +149,22 @@ class AppTheme {
               selectionHandleColor: AppCharcoal.focus,
             )
           : theme.textSelectionTheme,
-      textTheme: (_usesWindowsFontFallback
-              ? theme.textTheme.apply(fontFamilyFallback: _windowsFontFamilyFallback)
-              : theme.textTheme)
-          .apply(
-            bodyColor: brightness == Brightness.dark ? palette.textPrimary : null,
-            displayColor: brightness == Brightness.dark ? palette.textPrimary : null,
-          ),
-      primaryTextTheme: (_usesWindowsFontFallback
-              ? theme.primaryTextTheme.apply(fontFamilyFallback: _windowsFontFamilyFallback)
-              : theme.primaryTextTheme)
-          .apply(
-            bodyColor: brightness == Brightness.dark ? palette.textPrimary : null,
-            displayColor: brightness == Brightness.dark ? palette.textPrimary : null,
-          ),
+      textTheme:
+          (_usesWindowsFontFallback
+                  ? theme.textTheme.apply(fontFamilyFallback: _windowsFontFamilyFallback)
+                  : theme.textTheme)
+              .apply(
+                bodyColor: brightness == Brightness.dark ? palette.textPrimary : null,
+                displayColor: brightness == Brightness.dark ? palette.textPrimary : null,
+              ),
+      primaryTextTheme:
+          (_usesWindowsFontFallback
+                  ? theme.primaryTextTheme.apply(fontFamilyFallback: _windowsFontFamilyFallback)
+                  : theme.primaryTextTheme)
+              .apply(
+                bodyColor: brightness == Brightness.dark ? palette.textPrimary : null,
+                displayColor: brightness == Brightness.dark ? palette.textPrimary : null,
+              ),
     );
   }
 }
