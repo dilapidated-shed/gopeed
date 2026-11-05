@@ -14,12 +14,12 @@ enum AppThemeMode {
   final String key;
 
   static AppThemeMode fromKey(String? key) {
-    return values.where((mode) => mode.key == key).firstOrNull ?? AppThemeMode.system;
+    return values.where((mode) => mode.key == key).firstOrNull ?? AppThemeMode.dark;
   }
 }
 
 class AppAppearanceState {
-  const AppAppearanceState({this.themeMode = AppThemeMode.system, this.themeColor = AppThemeColor.green});
+  const AppAppearanceState({this.themeMode = AppThemeMode.dark, this.themeColor = AppThemeColor.green});
 
   final AppThemeMode themeMode;
   final AppThemeColor themeColor;

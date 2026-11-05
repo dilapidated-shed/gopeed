@@ -1,0 +1,63 @@
+diff --git a/ui/flutter/lib/shared/theme/app_theme.dart b/ui/flutter/lib/shared/theme/app_theme.dart
+index 5d85b37..35b6761 100644
+--- a/ui/flutter/lib/shared/theme/app_theme.dart
++++ b/ui/flutter/lib/shared/theme/app_theme.dart
+@@ -149,20 +149,22 @@ class AppTheme {
+               selectionHandleColor: AppCharcoal.focus,
+             )
+           : theme.textSelectionTheme,
+-      textTheme: (_usesWindowsFontFallback
+-              ? theme.textTheme.apply(fontFamilyFallback: _windowsFontFamilyFallback)
+-              : theme.textTheme)
+-          .apply(
+-            bodyColor: brightness == Brightness.dark ? palette.textPrimary : null,
+-            displayColor: brightness == Brightness.dark ? palette.textPrimary : null,
+-          ),
+-      primaryTextTheme: (_usesWindowsFontFallback
+-              ? theme.primaryTextTheme.apply(fontFamilyFallback: _windowsFontFamilyFallback)
+-              : theme.primaryTextTheme)
+-          .apply(
+-            bodyColor: brightness == Brightness.dark ? palette.textPrimary : null,
+-            displayColor: brightness == Brightness.dark ? palette.textPrimary : null,
+-          ),
++      textTheme:
++          (_usesWindowsFontFallback
++                  ? theme.textTheme.apply(fontFamilyFallback: _windowsFontFamilyFallback)
++                  : theme.textTheme)
++              .apply(
++                bodyColor: brightness == Brightness.dark ? palette.textPrimary : null,
++                displayColor: brightness == Brightness.dark ? palette.textPrimary : null,
++              ),
++      primaryTextTheme:
++          (_usesWindowsFontFallback
++                  ? theme.primaryTextTheme.apply(fontFamilyFallback: _windowsFontFamilyFallback)
++                  : theme.primaryTextTheme)
++              .apply(
++                bodyColor: brightness == Brightness.dark ? palette.textPrimary : null,
++                displayColor: brightness == Brightness.dark ? palette.textPrimary : null,
++              ),
+     );
+   }
+ }
+diff --git a/ui/flutter/test/charcoal_acceptance_test.dart b/ui/flutter/test/charcoal_acceptance_test.dart
+index f3b0a37..954b9ea 100644
+--- a/ui/flutter/test/charcoal_acceptance_test.dart
++++ b/ui/flutter/test/charcoal_acceptance_test.dart
+@@ -134,7 +134,7 @@ void main() {
+           expect(DefaultTextStyle.of(context).style.color, AppCharcoal.text);
+           final name = '${width.toInt()}-${brightness.name}';
+           expect(await _capture(tester, '$name-empty'), isTrue);
+-  
++
+           await tester.enterText(find.byType(AppTextField), 'λğ✓ retained input');
+           await tester.pumpAndSettle();
+           controller.selection = const TextSelection(baseOffset: 0, extentOffset: 3);
+@@ -143,7 +143,7 @@ void main() {
+           expect(controller.selection.textInside(controller.text), 'λğ✓');
+           expect(tester.takeException(), isNull);
+           expect(await _capture(tester, '$name-input-selection'), isTrue);
+-  
++
+           await tester.pumpWidget(_controls(controller, light: true));
+           await tester.pumpAndSettle();
+           expect(await _capture(tester, '$name-declared-light-negative'), isFalse);

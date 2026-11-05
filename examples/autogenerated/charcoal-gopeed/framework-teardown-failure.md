@@ -1,0 +1,5 @@
+# Restore framework debug state before its invariant check
+
+Run42038915313 passes native copies, locked dependencies and flutter analyze. All existing non-skipped Flutter tests pass; six new screenshot cases execute their exact pixel/text/input/negative predicates but fail the framework's end-of-body foundation invariant because debugDefaultTargetPlatformOverride is reset only in addTearDown. Flutter checks that invariant before external teardown. The override now resets in a body-level try/finally, following this repository's existing adaptive-menu tests. The full rejected fixture is retained; no pixel/contrast/default-mode/selection predicate is removed or relaxed.
+
+If the final Dart format gate fails, the runner keeps that failure and emits the exact formatter patch for review after the source-bound tests. This does not commit or accept formatted runner changes, waive the gate, or replace exact-head evidence. Current full-suite/formatting results remain pending; shared-control fixtures remain distinct from real Android application execution.

@@ -1,0 +1,16 @@
+#!/usr/bin/env grease
+set -eu -o pipefail
+cd ui/flutter
+flutter --version
+flutter config --no-analytics
+flutter pub get --enforce-lockfile
+flutter analyze
+flutter test --reporter expanded
+try { dart format --output=none --set-exit-if-changed lib/shared/theme/app_charcoal.dart lib/shared/theme/app_palette.dart lib/shared/theme/app_theme.dart lib/shared/theme/app_component_themes.dart lib/app/application/app_appearance_controller.dart lib/core/window/app_window_appearance.dart test/charcoal_acceptance_test.dart }
+var format_status = _error.code
+if (format_status !== 0) {
+  dart format lib/shared/theme/app_charcoal.dart lib/shared/theme/app_palette.dart lib/shared/theme/app_theme.dart lib/shared/theme/app_component_themes.dart lib/app/application/app_appearance_controller.dart lib/core/window/app_window_appearance.dart test/charcoal_acceptance_test.dart
+  git diff -- lib/shared/theme/app_charcoal.dart lib/shared/theme/app_palette.dart lib/shared/theme/app_theme.dart lib/shared/theme/app_component_themes.dart lib/app/application/app_appearance_controller.dart lib/core/window/app_window_appearance.dart test/charcoal_acceptance_test.dart > ../../build/charcoal-gopeed/format.patch
+  cat ../../build/charcoal-gopeed/format.patch
+  exit "$format_status"
+}

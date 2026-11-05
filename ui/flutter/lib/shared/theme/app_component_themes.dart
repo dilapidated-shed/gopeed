@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart' as shad;
 
+import 'app_charcoal.dart';
 import 'app_design_tokens.dart';
 import 'app_palette.dart';
 
@@ -16,7 +17,9 @@ class AppComponentThemes extends StatelessWidget {
     return shad.ComponentTheme<shad.FocusOutlineTheme>(
       data: shad.FocusOutlineTheme(
         align: 1,
-        border: Border.all(color: theme.colorScheme.ring.withValues(alpha: 0.65), width: 1),
+        border: theme.brightness == Brightness.dark
+            ? Border.all(color: palette.textSecondary, width: 2)
+            : Border.all(color: theme.colorScheme.ring.withValues(alpha: 0.65), width: 1),
       ),
       child: shad.ComponentTheme<shad.TextFieldTheme>(
         data: shad.TextFieldTheme(
@@ -46,10 +49,18 @@ class AppComponentThemes extends StatelessWidget {
               return value;
             },
             textStyle: (context, states, value) => states.contains(WidgetState.disabled)
-                ? value.copyWith(color: palette.textMuted.withValues(alpha: 0.62))
+                ? value.copyWith(
+                    color: theme.brightness == Brightness.dark
+                        ? AppCharcoal.disabled
+                        : palette.textMuted.withValues(alpha: 0.62),
+                  )
                 : value,
             iconTheme: (context, states, value) => states.contains(WidgetState.disabled)
-                ? value.copyWith(color: palette.textMuted.withValues(alpha: 0.62))
+                ? value.copyWith(
+                    color: theme.brightness == Brightness.dark
+                        ? AppCharcoal.disabled
+                        : palette.textMuted.withValues(alpha: 0.62),
+                  )
                 : value,
           ),
           child: shad.ComponentTheme<shad.CheckboxTheme>(

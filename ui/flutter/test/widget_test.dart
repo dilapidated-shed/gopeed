@@ -335,7 +335,7 @@ void main() {
     );
     expect(
       tester.widget<Container>(find.byKey(const ValueKey('primary-rail-active-indicator'))).color,
-      AppPalette.light.textPrimary,
+      AppPalette.dark.textPrimary,
     );
     expect(
       tester
@@ -2587,7 +2587,7 @@ void main() {
     await tester.tap(find.byKey(const ValueKey('settings-language-select')));
     await tester.pumpAndSettle();
     expect(find.text('English'), findsOneWidget);
-    expect(SettingsLanguageSelect.supportedValues, hasLength(21));
+    expect(SettingsLanguageSelect.supportedValues, hasLength(22));
     expect(SettingsLanguageSelect.supportedValues, containsAll(<String>['zh', 'zh_TW', 'pt']));
     expect(SettingsLanguageSelect.supportedValues, isNot(contains('zh_CN')));
     expect(SettingsLanguageSelect.supportedValues, isNot(contains('pt_BR')));

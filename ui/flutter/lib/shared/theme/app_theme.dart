@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' as material;
 import 'package:flutter/painting.dart' show TextStyle;
 import 'package:shadcn_flutter/shadcn_flutter.dart' as shad;
 
+import 'app_charcoal.dart';
 import 'app_palette.dart';
 import 'app_theme_color.dart';
 
@@ -106,12 +107,64 @@ class AppTheme {
     );
     return theme.copyWith(
       extensions: <material.ThemeExtension<dynamic>>[palette],
-      textTheme: _usesWindowsFontFallback
-          ? theme.textTheme.apply(fontFamilyFallback: _windowsFontFamilyFallback)
-          : theme.textTheme,
-      primaryTextTheme: _usesWindowsFontFallback
-          ? theme.primaryTextTheme.apply(fontFamilyFallback: _windowsFontFamilyFallback)
-          : theme.primaryTextTheme,
+      colorScheme: brightness == Brightness.dark
+          ? theme.colorScheme.copyWith(
+              surface: palette.bg,
+              onSurface: palette.textPrimary,
+              surfaceDim: palette.bg,
+              surfaceBright: palette.cardHoverBg,
+              surfaceContainerLowest: palette.bg,
+              surfaceContainerLow: palette.cardBg,
+              surfaceContainer: palette.cardBg,
+              surfaceContainerHigh: palette.cardBg,
+              surfaceContainerHighest: palette.inputBg,
+              onSurfaceVariant: palette.textSecondary,
+              primaryContainer: palette.inputBg,
+              onPrimaryContainer: palette.textPrimary,
+              secondary: palette.textSecondary,
+              onSecondary: palette.bg,
+              secondaryContainer: palette.inputBg,
+              onSecondaryContainer: palette.textPrimary,
+              error: palette.error,
+              onError: palette.bg,
+              errorContainer: palette.cardBg,
+              onErrorContainer: palette.error,
+              outline: palette.border,
+              outlineVariant: palette.border,
+              inverseSurface: palette.inputBg,
+              onInverseSurface: palette.textPrimary,
+              surfaceTint: const material.Color(0x00000000),
+            )
+          : theme.colorScheme,
+      scaffoldBackgroundColor: palette.bg,
+      canvasColor: palette.bg,
+      cardColor: palette.cardBg,
+      dividerColor: palette.border,
+      hintColor: palette.searchHint,
+      disabledColor: brightness == Brightness.dark ? AppCharcoal.disabled : theme.disabledColor,
+      textSelectionTheme: brightness == Brightness.dark
+          ? const material.TextSelectionThemeData(
+              cursorColor: AppCharcoal.text,
+              selectionColor: AppCharcoal.selection,
+              selectionHandleColor: AppCharcoal.focus,
+            )
+          : theme.textSelectionTheme,
+      textTheme:
+          (_usesWindowsFontFallback
+                  ? theme.textTheme.apply(fontFamilyFallback: _windowsFontFamilyFallback)
+                  : theme.textTheme)
+              .apply(
+                bodyColor: brightness == Brightness.dark ? palette.textPrimary : null,
+                displayColor: brightness == Brightness.dark ? palette.textPrimary : null,
+              ),
+      primaryTextTheme:
+          (_usesWindowsFontFallback
+                  ? theme.primaryTextTheme.apply(fontFamilyFallback: _windowsFontFamilyFallback)
+                  : theme.primaryTextTheme)
+              .apply(
+                bodyColor: brightness == Brightness.dark ? palette.textPrimary : null,
+                displayColor: brightness == Brightness.dark ? palette.textPrimary : null,
+              ),
     );
   }
 }
